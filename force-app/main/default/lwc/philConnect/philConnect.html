@@ -1,0 +1,92 @@
+<template>
+    <div if:false={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+        <div class="slds-spinner_container">
+            <div role="status" class="slds-spinner slds-spinner_large">
+              <span class="slds-assistive-text">Loading</span>
+              <div class="slds-spinner__dot-a"></div>
+              <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+    <lightning-card title="Sustainability " icon-name="standard:social" alt="Giving Social Sustainability" class="main">
+        
+        <header>
+            <span>Welcome to your</span>
+            <h1>Social Well-being Dashboard</h1>
+            <span>Review your donations and volunteering contributions</span>
+        </header>
+
+        <lightning-record-view-form record-id={recordId} object-api-name="Account">
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-output-field field-name="Name"></lightning-output-field>
+                    <lightning-output-field field-name="Phone"></lightning-output-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-output-field field-name="Industry"></lightning-output-field>
+                    <lightning-output-field field-name="AnnualRevenue"></lightning-output-field>
+                </div>
+            </div>
+        </lightning-record-view-form>
+
+        <section class="slds-grid slds-wrap">
+            
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+                <div class="chart">
+                    <h4>Giving Participation</h4>
+                    <canvas class="gpChart" lwc:dom="manual"></canvas>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+                <div class="chart">
+                    <h4>Giving</h4>
+                    <div class="slds-form-element sort-select">
+                        <label>Group By:</label>
+                        <div class="slds-form-element__control">
+                          <div class="slds-select_container">
+                            <select class="slds-select givingFilterGroup">
+                                <option selected value="Nonprofit_Name">Organization</option>
+                                <option value="Cause">Cause</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    <canvas class="gChart" lwc:dom="manual"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="slds-grid slds-wrap">
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+                <div class="chart">
+                    <h4>Volunteer Participation</h4>
+                    <div class="vpText" lwc:dom="manual"></div>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+                <div class="chart">
+                    <h4>Volunteer Activity</h4>
+                    <div class="slds-form-element sort-select">
+                        <label>Group By:</label>
+                        <div class="slds-form-element__control">
+                          <div class="slds-select_container">
+                            <select class="slds-select volunteerFilterGroup">
+                                <option selected value="beneficiary_name">Beneficiary</option>
+                                <!--option value="causes">Cause</option-->
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    <canvas class="vaChart" lwc:dom="manual"></canvas>
+                </div>
+            </div>
+
+        </section>
+    </lightning-card> 
+</template>
+
+<!--  -->
