@@ -56,7 +56,6 @@ h4{
   margin: 10px auto;
   position: relative;
   width: 97%;
-  height: 97%;;
 }
 
 .round-border{
@@ -82,14 +81,14 @@ h4{
 }
 
 .flex-div h5{
-  font-size: 1rem;
+  font-size: .80rem;
   max-width: 100%;
   font-family: SalesforceSans, Helvetica, Arial, sans-serif;
   font-weight: 400;
   line-height: 1.45;
   text-transform: none;
   text-decoration: none;  
-  margin-top: 30px;
+  margin-top: 25%;
 }
 
 .flex-div strong{
@@ -98,4 +97,17 @@ h4{
   font-weight: 400;
   text-transform: none;
   text-decoration: none;  
+}
+
+@media only screen and (max-width: 600px) {
+  .flex-div h5{
+    font-size: .80rem;
+    max-width: 100%;
+    font-family: SalesforceSans, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.45;
+    text-transform: none;
+    text-decoration: none;  
+    margin-top: 7%;
+  }
 }

@@ -16,8 +16,8 @@
             <span>Review your donations and volunteering contributions</span>
         </header>
 
-        <lightning-record-view-form record-id={recordId} object-api-name="Account">
-            <div class="slds-grid">
+        <!--lightning-record-view-form record-id={recordId} object-api-name="Account">
+            <div class="slds-grid" >
                 <div class="slds-col slds-size_1-of-2">
                     <lightning-output-field field-name="Name"></lightning-output-field>
                     <lightning-output-field field-name="Phone"></lightning-output-field>
@@ -27,27 +27,27 @@
                     <lightning-output-field field-name="AnnualRevenue"></lightning-output-field>
                 </div>
             </div>
-        </lightning-record-view-form>
+        </lightning-record-view-form-->
 
         <section class="slds-grid slds-wrap">
             
             <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
-                <div class="chart">
+                <div class="chart gp">
                     <h4>Giving Participation</h4>
                     <canvas class="gpChart" lwc:dom="manual"></canvas>
                 </div>
             </div>
 
             <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
-                <div class="chart">
+                <div class="chart g">
                     <h4>Giving</h4>
                     <div class="slds-form-element sort-select">
                         <label>Group By:</label>
                         <div class="slds-form-element__control">
                           <div class="slds-select_container">
                             <select class="slds-select givingFilterGroup">
-                                <option selected value="Nonprofit_Name">Organization</option>
-                                <option value="Cause">Cause</option>
+                              <option selected value="Cause">Cause</option>
+                              <!--option  value="Nonprofit_Name">Organization</option-->                                
                             </select>
                           </div>
                         </div>
@@ -61,14 +61,22 @@
         <section class="slds-grid slds-wrap">
 
             <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
-                <div class="chart">
-                    <h4>Volunteer Participation</h4>
-                    <div class="vpText" lwc:dom="manual"></div>
+                <div class="chart vp">
+                  
+                  <span class="slds-icon_container slds-icon-utility-announcement" title="Description of icon when needed">
+                    <svg class="slds-icon slds-icon-text-default" aria-hidden="true">
+                      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#announcement"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Description of icon when needed</span>
+                  </span>
+
+                  <h4>Volunteer Participation</h4>
+                  <div class="vpText" lwc:dom="manual"></div>
                 </div>
             </div>
 
             <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
-                <div class="chart">
+                <div class="chart va">
                     <h4>Volunteer Activity</h4>
                     <div class="slds-form-element sort-select">
                         <label>Group By:</label>
@@ -88,5 +96,3 @@
         </section>
     </lightning-card> 
 </template>
-
-<!--  -->

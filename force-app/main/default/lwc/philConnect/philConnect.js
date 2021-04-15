@@ -3,18 +3,26 @@ import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import chartjs from '@salesforce/resourceUrl/ChartJs';
 import momentjs from '@salesforce/resourceUrl/MomentJs';
+import contacts from '@salesforce/apex/accountConnect.getContactList';
+import currentRecord from '@salesforce/apex/accountConnect.getRecordID';
+import page from '@salesforce/apex/accountConnect.pageID';
 
 export default class PhilConnect extends LightningElement {
     @track isChartJsInitialized;
     @api recordId;
     @api objectApiName;
-    fields = ['AccountId', 'Name', 'Title', 'Phone', 'Email'];
-    
+    @wire(contacts) listOfContacts;
+    @wire(currentRecord) theCurrentRecord;
+    @wire(page) getPage;
     chart;
     givingParticipationData = {};
     
     constructor(){
       super();
+
+      window.addEventListener("resize",()=>{
+        this.template.querySelector(".vp").setAttribute("style",`height:${this.template.querySelector(".va").clientHeight + 3}px`);
+      })
     }
 
     givingParticipation(data){
@@ -104,8 +112,6 @@ export default class PhilConnect extends LightningElement {
     }
 
     volunteerParticipation(data){
-      console.log(data.Volunterring_Participation);   
-      
       let signUpCount = 0;
       let logHoursCount = 0;
       const roundAccurately = (number, decimalPlaces) => Number(Math.round(number + "e" + decimalPlaces) + "e-" + decimalPlaces)
@@ -119,10 +125,6 @@ export default class PhilConnect extends LightningElement {
         }
       });
 
-
-      console.log(roundAccurately(signUpCount/data.Volunteering_Participation.length, 2), roundAccurately(logHoursCount/data.Volunteering_Participation.length, 2));
-
-
       return  `
               <div class="flex-container">
                 <div class="flex-div">
@@ -134,10 +136,10 @@ export default class PhilConnect extends LightningElement {
               </div>
               <div class="flex-container">
                 <div class="flex-div">
-                  <strong>${roundAccurately(signUpCount/data.Volunteering_Participation.length, 2)}</strong>
+                  <strong>${Math.round(roundAccurately(signUpCount/data.Volunteering_Participation.length, 2) * 100)}%</strong>
                 </div>
                 <div class="flex-div">
-                  <strong>${roundAccurately(logHoursCount/data.Volunteering_Participation.length, 2)}</strong>
+                  <strong>${Math.round(roundAccurately(logHoursCount/data.Volunteering_Participation.length, 2) * 100)}%</strong>
                 </div>
               </div>
               `
@@ -181,10 +183,10 @@ export default class PhilConnect extends LightningElement {
       calculateLabelsAndAddition();
 
       let configData = [{
-          label: "Contributions",
-          backgroundColor: "#3e95cd",
-          data: calculateLabelsAndAddition().addition
-        }]
+        label: "Contributions",
+        backgroundColor: "#3e95cd",
+        data: calculateLabelsAndAddition().addition
+      }]
   
       return {
         type: 'horizontalBar',
@@ -195,18 +197,20 @@ export default class PhilConnect extends LightningElement {
         },
         options: {
           legend: { display: false },
+          //responsive: true,
+          //maintainAspectRatio: false,
           title: {
             display: true,
           },
           scales: {
             xAxes: [{
-                ticks: {
-                    // Include a dollar sign in the ticks
-                    callback: (value, index, values) =>{
-                        return '$' + this.numberWithCommas(value);
-                    }
-                }
-            }]
+              ticks: {
+                  // Include a dollar sign in the ticks
+                  callback: (value, index, values) =>{
+                      return '$' + this.numberWithCommas(value);
+                  }
+              }
+          }]
         }
         }
       }
@@ -326,7 +330,7 @@ export default class PhilConnect extends LightningElement {
           console.log(res.data);
           
           this.addChart('canvas.gpChart', this.givingParticipation(res.data));
-          this.addChart('canvas.gChart', this.giving(res.data, "Nonprofit_Name"));
+          this.addChart('canvas.gChart', this.giving(res.data, "Cause"));
           this.addText('div.vpText', this.volunteerParticipation(res.data));
           this.addChart('canvas.vaChart', this.volunteer(res.data, "beneficiary_name"));
 
@@ -341,15 +345,21 @@ export default class PhilConnect extends LightningElement {
             this.addChart('canvas.vaChart', this.volunteer(res.data, event.target.value));
             this.chart.update();
           });
+
+          console.log("catchme", this.listOfContacts);
+          console.log("catchme again", this.theCurrentRecord);
+          console.log("page", this.getPage);
+
+          this.template.querySelector(".vp").setAttribute("style",`height:${this.template.querySelector(".va").clientHeight + 3}px`);
       });
 
       }).catch(error => {
         console.log("Not All good");
         this.dispatchEvent(
             new ShowToastEvent({
-                title: 'Error loading ChartJS',
-                message: error.message,
-                variant: 'error',
+              title: 'Error loading ChartJS',
+              message: error.message,
+              variant: 'error'
             }),
         );
     });
@@ -362,7 +372,9 @@ export default class PhilConnect extends LightningElement {
   addChart(chartCanvas, data){
     const ctx = this.template.querySelector(chartCanvas).getContext('2d');
     this.chart = new window.Chart(ctx, data);
-    //this.chart.canvas.parentNode.style.height = '97%';
+    if(chartCanvas == "canvas.gChart"){
+      //this.chart.canvas.parentNode.style.height = '500px';
+    }
     //this.chart.canvas.parentNode.style.width = '97%';
 
     var gradient = ctx.createLinearGradient(0, 0, 0, 400)
