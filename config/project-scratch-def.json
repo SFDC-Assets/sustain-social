@@ -1,5 +1,20 @@
 {
-  "orgName": "my company",
+  "orgName": "sustainability cloud - esg - social",
   "edition": "Developer",
-  "features": []
+  "description": "prototype of esg social metrics... using unlocked packages lol",
+  "features": [
+    "DevelopmentWave",
+    "SustainabilityCloud"
+  ],
+   "settings": {
+    "lightningExperienceSettings": {
+        "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+        "enableS1EncryptedStoragePref2": false
+    },
+    "pathAssistantSettings": {
+      "pathAssistantEnabled": true
+    }
+  }
 }
