@@ -1,11 +1,19 @@
 # sustain-social
 A collection of different 'Social' components that companies report on for ESG frameworks for deployment with Sustainability Cloud.
 
-- LWC that ties into Philanthropy Cloud [^1]
+- LWC that ties into Philanthropy Cloud [1]
 - Lightweight objects for organizing data collection and reporting status for ESG reporting frameworks 
 - Tableau CRM template for Diversity, Equality, and Inclusion
 
-[^1] not truly connected yet... waiting on the Philanthropy Cloud API to be released :)
+[1] not truly connected yet... waiting on the Philanthropy Cloud API to be released :)
+
+
+| folder | thing it does|
+|--|--|
+| base-framework | objects for ESG reporting frameworks |
+| base-app | console app that combines everything |
+| comp-phil | lwc + page for philanthropy |
+| comp-dei | tableau crm template |
 
 ## a note on DX craziness
 Well, I decided to split things up into packages so you won't see the normal force-app folder structure.
