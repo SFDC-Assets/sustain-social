@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>ESG_Report__c</entityName>
+    <fieldName>Status__c</fieldName>
+    <masterLabel>ESG Report Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Next_Steps__c</fieldNames>
+        <picklistValueName>External Audit</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Next_Steps__c</fieldNames>
+        <picklistValueName>In Progress</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Report_Start_Date__c</fieldNames>
+        <fieldNames>Report_End_Date__c</fieldNames>
+        <fieldNames>Reporting_Date__c</fieldNames>
+        <fieldNames>Next_Steps__c</fieldNames>
+        <picklistValueName>New</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Next_Steps__c</fieldNames>
+        <picklistValueName>Validation</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>

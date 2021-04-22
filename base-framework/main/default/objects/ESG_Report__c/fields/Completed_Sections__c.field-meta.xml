@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Completed_Sections__c</fullName>
+    <externalId>false</externalId>
+    <label>Completed Sections</label>
+    <summaryFilterItems>
+        <field>ESG_Report_Section__c.Section_Status__c</field>
+        <operation>equals</operation>
+        <value>Complete</value>
+    </summaryFilterItems>
+    <summaryForeignKey>ESG_Report_Section__c.ESG_Report__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

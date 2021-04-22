@@ -10,3 +10,18 @@ package.xml
 
 # LWC Jest
 **/__tests__/**
+
+# profiles
+**/Custom%3A Marketing Profile.profile-meta.xml
+**/Custom%3A Sales Profile.profile-meta.xml
+**/Custom%3A Support Profile.profile-meta.xml
+
+# base-framework
+base-framework/main/default/applications
+
+# base-app (default)
+
+# comp-dei
+
+# comp-phil
+comp-phil/main/default/flexipages/Home_Page_Default.flexipage-meta.xml

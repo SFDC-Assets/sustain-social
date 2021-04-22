@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>ESG_Social</application>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <description>The actual lightning app perms. These are managed separately so I can iteratively add items to it (hopefully) or fix anything that doesnt sit in the base obj package</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ESG Social App</label>
+</PermissionSet>
