@@ -1,0 +1,74 @@
+{
+  "templateType" : "app",
+  "label" : "ESG: Diversity, Equality, and Inclusion",
+  "name" : "ESG_Diversity_Equality_and_Inclusion",
+  "description" : "",
+  "assetVersion" : 51.0,
+  "variableDefinition" : "variables.json",
+  "uiDefinition" : "ui.json",
+  "rules" : [
+    {
+      "type" : "templateToApp",
+      "file" : "template-to-app-rules.json"
+    },
+    {
+      "type" : "appToTemplate",
+      "file" : "app-to-template-rules.json"
+    }
+  ],
+  "releaseInfo" : {
+    "templateVersion" : "1.0",
+    "notesFile" : "releaseNotes.html"
+  },
+  "folderDefinition" : "folder.json",
+  "externalFiles" : [
+    {
+      "label" : "HR Data",
+      "name" : "HR_Data",
+      "condition" : "${Variables.Overrides.createAllExternalFiles}",
+      "file" : "external_files/HR_Data.csv",
+      "type" : "CSV",
+      "schema" : "external_files/HR_Data.json",
+      "userXmd" : "external_files/HR_Data_XMD.json",
+      "rows" : 5
+    }
+  ],
+  "lenses" : [ ],
+  "dashboards" : [
+    {
+      "label" : "Diversity, Equality, & Inclusion",
+      "name" : "Diversity_Equality_Inclusion_tp",
+      "condition" : "${Variables.Overrides.createAllDashboards}",
+      "file" : "dashboards/Diversity_Equality_Inclusion.json"
+    }
+  ],
+  "eltDataflows" : [ ],
+  "recipes" : [
+    {
+      "label" : "HR Data Recipe",
+      "name" : "HR_Data_Recipe",
+      "condition" : "${Variables.Overrides.createAllRecipes}",
+      "file" : "recipes/HR_Data_Recipe.json"
+    }
+  ],
+  "datasetFiles" : [ ],
+  "storedQueries" : [ ],
+  "imageFiles" : [
+    {
+      "name" : "iconsustainsocialpng",
+      "condition" : "${Variables.Overrides.createAllImages}",
+      "file" : "images/icon-sustain-social.png"
+    }
+  ],
+  "extendedTypes" : { },
+  "templateDependencies" : [ ],
+  "icons" : {
+    "appBadge" : {
+      "name" : "16.png"
+    },
+    "templateBadge" : {
+      "name" : "default.png"
+    },
+    "templatePreviews" : [ ]
+  }
+}

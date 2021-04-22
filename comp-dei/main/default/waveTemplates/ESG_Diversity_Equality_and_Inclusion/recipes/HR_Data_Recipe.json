@@ -1,0 +1,358 @@
+{
+  "name" : "HR_Data_Recipe",
+  "label" : "HR Data Recipe",
+  "publishingTarget" : "DATASET",
+  "format" : "R3",
+  "recipeDefinition" : {
+    "version" : "51.0",
+    "nodes" : {
+      "LOAD_DATASET0" : {
+        "action" : "load",
+        "sources" : [ ],
+        "parameters" : {
+          "fields" : [
+            "Gender",
+            "Job_Title",
+            "Nationality",
+            "First_Name",
+            "Department",
+            "Last_Name",
+            "Race_Ethnicity",
+            "Location",
+            "Pay_Band",
+            "Length_of_Service",
+            "Employee_ID",
+            "Job_Level",
+            "Age"
+          ],
+          "dataset" : {
+            "type" : "analyticsDataset",
+            "label" : "HR Data",
+            "name" : "${App.Datasets.HR_Data.FullyQualifiedName}"
+          }
+        }
+      },
+      "BUCKET0" : {
+        "action" : "bucket",
+        "sources" : [
+          "LOAD_DATASET0"
+        ],
+        "parameters" : {
+          "fields" : [
+            {
+              "name" : "Age_bucket",
+              "label" : "Age Bucket",
+              "type" : "TEXT",
+              "bucketsSetup" : {
+                "isPassthroughEnabled" : false,
+                "sourceField" : {
+                  "name" : "Age",
+                  "type" : "NUMBER"
+                },
+                "buckets" : [
+                  {
+                    "value" : "Under 30",
+                    "rangeEnd" : 30.0
+                  },
+                  {
+                    "value" : "30 - 50",
+                    "rangeStart" : 30.0,
+                    "rangeEnd" : 51.0
+                  },
+                  {
+                    "value" : "Over 50",
+                    "rangeStart" : 51.0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "BUCKET1" : {
+        "action" : "bucket",
+        "sources" : [
+          "BUCKET0"
+        ],
+        "parameters" : {
+          "fields" : [
+            {
+              "name" : "Job_Title_bucket",
+              "label" : "Tech/Non-Tech",
+              "type" : "TEXT",
+              "bucketsSetup" : {
+                "defaultBucketValue" : "Non-Tech",
+                "isPassthroughEnabled" : false,
+                "sourceField" : {
+                  "name" : "Job_Title",
+                  "type" : "TEXT"
+                },
+                "buckets" : [
+                  {
+                    "value" : "Tech",
+                    "sourceValues" : [
+                      "Analyst Programmer",
+                      "Audio Engineer",
+                      "Chemical Engineer",
+                      "Chief Design Engineer",
+                      "Civil Engineer",
+                      "Computer Systems Analyst I",
+                      "Computer Systems Analyst II",
+                      "Computer Systems Analyst III",
+                      "Computer Systems Analyst IV",
+                      "Database Administrator I",
+                      "Database Administrator II",
+                      "Database Administrator III",
+                      "Database Administrator IV",
+                      "Design Engineer",
+                      "Developer I",
+                      "Developer II",
+                      "Developer III",
+                      "Developer IV",
+                      "Electrical Engineer",
+                      "Engineer I",
+                      "Engineer II",
+                      "Engineer III",
+                      "Engineer IV",
+                      "Geological Engineer",
+                      "Mechanical Systems Engineer",
+                      "Power Engineer",
+                      "Product Engineer",
+                      "Programmer Analyst I",
+                      "Programmer Analyst II",
+                      "Programmer Analyst III",
+                      "Programmer Analyst IV",
+                      "Programmer I",
+                      "Programmer II",
+                      "Programmer III",
+                      "Programmer IV",
+                      "Quality Engineer",
+                      "Senior Developer",
+                      "Senior Quality Engineer",
+                      "Software Engineer I",
+                      "Software Engineer II",
+                      "Software Engineer IV",
+                      "Software Test Engineer I",
+                      "Software Test Engineer II",
+                      "Software Test Engineer III",
+                      "Software Test Engineer IV",
+                      "Structural Analysis Engineer",
+                      "Structural Engineer",
+                      "Systems Administrator I",
+                      "Systems Administrator II",
+                      "Systems Administrator III",
+                      "Systems Administrator IV",
+                      "Web Developer II",
+                      "Web Developer III",
+                      "Web Developer IV"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "FORMULA0" : {
+        "action" : "formula",
+        "sources" : [
+          "BUCKET3"
+        ],
+        "parameters" : {
+          "expressionType" : "SQL",
+          "fields" : [
+            {
+              "type" : "NUMBER",
+              "name" : "Job_Level_formula",
+              "label" : "Pay Band Discrepancy",
+              "formulaExpression" : "Pay_Band - Job_Level",
+              "precision" : 10,
+              "scale" : 0,
+              "defaultValue" : "0"
+            }
+          ]
+        }
+      },
+      "BUCKET2" : {
+        "action" : "bucket",
+        "sources" : [
+          "BUCKET1"
+        ],
+        "parameters" : {
+          "fields" : [
+            {
+              "name" : "Gender_bucket",
+              "label" : "Gender Category",
+              "type" : "TEXT",
+              "bucketsSetup" : {
+                "defaultBucketValue" : "Other",
+                "isPassthroughEnabled" : false,
+                "sourceField" : {
+                  "name" : "Gender",
+                  "type" : "TEXT"
+                },
+                "buckets" : [
+                  {
+                    "value" : "Male",
+                    "sourceValues" : [
+                      "Male"
+                    ]
+                  },
+                  {
+                    "value" : "Female",
+                    "sourceValues" : [
+                      "Female"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "BUCKET3" : {
+        "action" : "bucket",
+        "sources" : [
+          "BUCKET2"
+        ],
+        "parameters" : {
+          "fields" : [
+            {
+              "name" : "Location_bucket",
+              "label" : "Region",
+              "type" : "TEXT",
+              "bucketsSetup" : {
+                "isPassthroughEnabled" : true,
+                "sourceField" : {
+                  "name" : "Location",
+                  "type" : "TEXT"
+                },
+                "buckets" : [
+                  {
+                    "value" : "AMER - US",
+                    "sourceValues" : [
+                      "Atlanta",
+                      "Austin",
+                      "Chicago",
+                      "Dallas",
+                      "Irvine",
+                      "New York City",
+                      "San Francisco",
+                      "Seattle"
+                    ]
+                  },
+                  {
+                    "value" : "AMER - Non US",
+                    "sourceValues" : [
+                      "Mexico City",
+                      "Montreal",
+                      "Montreal ",
+                      "Toronto",
+                      "Vancouver"
+                    ]
+                  },
+                  {
+                    "value" : "EMEA",
+                    "sourceValues" : [
+                      "Lagos",
+                      "London",
+                      "Munich",
+                      "Paris"
+                    ]
+                  },
+                  {
+                    "value" : "APAC",
+                    "sourceValues" : [
+                      "Hong Kong",
+                      "Kyoto",
+                      "Shanghai",
+                      "Tokyo"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "OUTPUT0" : {
+        "action" : "save",
+        "sources" : [
+          "FORMULA0"
+        ],
+        "parameters" : {
+          "fields" : [ ],
+          "dataset" : {
+            "type" : "analyticsDataset",
+            "label" : "HR Data - Transformed",
+            "name" : "${App.Datasets.HR_Data.FullyQualifiedName}",
+            "folderName" : "${App.Folder.FullyQualifiedName}"
+          }
+        }
+      }
+    },
+    "ui" : {
+      "nodes" : {
+        "LOAD_DATASET0" : {
+          "label" : "HR Data",
+          "type" : "LOAD_DATASET",
+          "top" : 112,
+          "left" : 112,
+          "parameters" : {
+            "sampleSize" : 2000
+          }
+        },
+        "TRANSFORM0" : {
+          "label" : "Transform",
+          "type" : "TRANSFORM",
+          "top" : 112,
+          "left" : 252,
+          "graph" : {
+            "FORMULA0" : {
+              "parameters" : {
+                "type" : "BASE_FORMULA_UI"
+              }
+            }
+          },
+          "connectors" : [
+            {
+              "source" : "BUCKET0",
+              "target" : "BUCKET1"
+            },
+            {
+              "source" : "BUCKET1",
+              "target" : "BUCKET2"
+            },
+            {
+              "source" : "BUCKET3",
+              "target" : "FORMULA0"
+            },
+            {
+              "source" : "BUCKET2",
+              "target" : "BUCKET3"
+            }
+          ]
+        },
+        "OUTPUT0" : {
+          "label" : "Output",
+          "type" : "OUTPUT",
+          "top" : 112,
+          "left" : 392
+        }
+      },
+      "connectors" : [
+        {
+          "source" : "LOAD_DATASET0",
+          "target" : "TRANSFORM0"
+        },
+        {
+          "source" : "TRANSFORM0",
+          "target" : "OUTPUT0"
+        }
+      ],
+      "hiddenColumns" : [ ]
+    }
+  },
+  "licenseAttributes" : { },
+  "_type" : "RECIPE"
+}
