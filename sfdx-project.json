@@ -1,11 +1,23 @@
 {
   "packageDirectories": [
     {
-      "path": "comp-phil",
+      "path": "base-framework",
+      "default": false
+    },
+    {
+      "path": "base-app",
       "default": true
+    },
+    {
+      "path": "comp-dei",
+      "default": false
+    },
+    {
+      "path": "comp-phil",
+      "default": false
     }
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "48.0"
+  "sourceApiVersion": "51.0"
 }
